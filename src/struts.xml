@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="true" />
+
+	<package name="basicstruts2" extends="struts-default">
+		<!-- global exception handling -->
+		<global-results>
+			<result name="securityerror">/WEB-INF/views/securityerror.jsp</result>
+			<result name="error">/WEB-INF/views/error.jsp</result>
+		</global-results>
+
+		<global-exception-mappings>
+			<exception-mapping result="securityerror"
+				exception="org.apache.struts.register.exceptions.SecurityBreachException"></exception-mapping>
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>
+		<action name="commit" class="com.nirvana.action.FormTagAction"
+			method="execute">
+			<result name="success">/WEB-INF/views/success.jsp</result>
+		</action>
+		<action name="index" class="com.nirvana.action.IndexAction"
+			method="execute">
+			<result name="success">/index.jsp</result>
+		</action>
+		<action name="validate" class="com.nirvana.action.ValidateAction"
+			method="execute">
+			<result name="success">/WEB-INF/views/success.jsp</result>
+			<result name="input">/index.jsp</result>
+		</action>
+
+		<!-- exception handling per action -->
+		<action name="exception" class="com.nirvana.action.ExceptionAction"
+			method="execute">
+			<exception-mapping
+				exception="org.apache.struts.register.exceptions.SecurityBreachException"
+				result="login" />
+			<result name="success">/WEB-INF/views/success.jsp</result>
+		</action>
+
+	</package>
+
+</struts>
